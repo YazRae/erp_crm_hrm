@@ -1,0 +1,10 @@
+export { default as AdminIcon } from "./Admin";
+export { default as ClientIcon } from "./Client";
+export { default as EmployeeIcon } from "./Employee";
+export { default as InvoiceIcon } from "./Invoice";
+export { default as ItemIcon } from "./Item";
+export { default as PaymentIcon } from "./Payment";
+export { default as PaymentModeIcon } from "./PaymentMode";
+export { default as QuoteIcon } from "./Quote";
+export { default as RoleIcon } from "./Role";
+export { default as SuppliersIcon } from "./Suppliers";
