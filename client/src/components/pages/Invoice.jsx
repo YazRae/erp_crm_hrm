@@ -8,10 +8,7 @@ function Invoice() {
   // const { moneyRowFormatter } = useMoney();
 
   const entity = "Invoice";
-  const searchConfig = {
-    displayLabels: ["name", "surname"],
-    path: "invoice",
-  };
+
   const dataTable = [
     {
       title: "#N",
@@ -83,7 +80,6 @@ function Invoice() {
   const config = {
     entity,
     dataTable,
-    searchConfig,
   };
   return <CrudFeature config={config} />;
 }

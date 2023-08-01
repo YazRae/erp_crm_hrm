@@ -1,27 +1,27 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Empty, Select } from "antd";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useDebounce } from "react-use";
+import { useAppContext } from "../../context/app";
 import { useCrudContext } from "../../context/crud";
-import { crud } from "../../redux/crud/actions.js";
-import { selectSearchedItems } from "../../redux/crud/selectors.js";
-import store from "../../redux/store";
 import { Search } from "../../redux/api/entityApiSlice";
+import { crud } from "../../redux/crud/actions.js";
 
 function EntitySearchFeature({ config }) {
   const {
     crudContextAction: { panel, collapsedBox, readBox },
   } = useCrudContext();
   const dispatch = useDispatch();
-  const {
-    dataTable,
-    searchConfig: { displayLabels, outputValue = "_id" },
-    entity,
-  } = config;
+  const { dataTable, entity } = config;
   const { Option } = Select;
 
-  // const { result, isLoading, isSuccess } = useSelector(selectSearchedItems);
+  const {
+    appContextAction: { searchConfig },
+  } = useAppContext();
+
+  const outputValue = searchConfig[entity].outputValue;
+  const displayLabels = searchConfig[entity].displayLabels;
 
   const [options, setOptions] = useState([]);
   const [currentValue, setCurrentValue] = useState(undefined);

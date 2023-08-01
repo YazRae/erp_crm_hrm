@@ -8,7 +8,7 @@ function valueByString(obj, string, devider) {
   if (devider === undefined) {
     devider = "|";
   }
-  console.log(string);
+
   return string
     .split(devider)
     .map(function (key) {

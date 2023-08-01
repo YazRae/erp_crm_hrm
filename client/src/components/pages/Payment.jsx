@@ -3,11 +3,7 @@ import { CrudFeature } from "../features";
 
 function Payment() {
   const entity = "payment";
-  const searchConfig = {
-    displayLabels: ["number"],
-    outputValue: "_id",
-    path: "payment",
-  };
+
   const dataTable = [
     {
       title: "number",
@@ -49,7 +45,6 @@ function Payment() {
   const config = {
     entity,
     dataTable,
-    searchConfig,
   };
   return <CrudFeature config={config} />;
 }

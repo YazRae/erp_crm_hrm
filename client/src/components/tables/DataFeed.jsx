@@ -51,7 +51,7 @@ function DataFeedTable({ config }) {
   const { pagination, result } = isSuccess && data;
 
   const refresh = () => {
-    store.dispatch(resetState());
+    store.dispatch(resetState);
   };
 
   return (

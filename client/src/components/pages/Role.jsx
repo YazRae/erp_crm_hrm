@@ -1,12 +1,8 @@
 import { CrudFeature } from "../features";
 
 function Role() {
-  const entity = "role";
-  const searchConfig = {
-    displayLabels: ["displayName"],
-    outputValue: "_id",
-    path: "role",
-  };
+  const entity = "Role";
+
   const dataTable = [
     { title: "Department", dataIndex: "department" },
     { title: "Role", dataIndex: "displayName" },
@@ -16,7 +12,6 @@ function Role() {
   const config = {
     entity,
     dataTable,
-    searchConfig,
   };
 
   return <CrudFeature config={config} />;

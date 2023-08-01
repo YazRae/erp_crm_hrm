@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
  *  @returns {Object} Results with pagination
  */
 
-const adminsList = async (req, res) => {
+const List = async (req, res) => {
   const page = req.query.page || 1;
   const limit = parseInt(req.query.items) || 10;
   const skip = page * limit - limit;
@@ -54,7 +54,7 @@ const adminsList = async (req, res) => {
       .json({ success: false, result: [], message: "Oops there is an Error" });
   }
 };
-const adminProfile = async (req, res) => {
+const Profile = async (req, res) => {
   try {
     //  Query the database for a list of all results
     if (!req.admin) {
@@ -91,7 +91,7 @@ const adminProfile = async (req, res) => {
   }
 };
 
-const adminPhoto = async (req, res) => {
+const Photo = async (req, res) => {
   try {
     // Find document by id
     const updates = {
@@ -138,7 +138,7 @@ const adminPhoto = async (req, res) => {
     });
   }
 };
-const adminRead = async (req, res) => {
+const Read = async (req, res) => {
   try {
     // Find document by id
     const tmpResult = await Admin.findOne({
@@ -186,7 +186,7 @@ const adminRead = async (req, res) => {
  *  @returns {string} Message
  */
 
-const adminCreate = async (req, res) => {
+const Create = async (req, res) => {
   try {
     console.log(req.body);
     const { email, password } = req.body;
@@ -254,32 +254,37 @@ const adminCreate = async (req, res) => {
  *  @returns {Document} Returns updated document
  */
 
-const adminUpdate = async (req, res) => {
+const Update = async (req, res) => {
+  console.log(req.body);
+
   try {
-    const { emailUpdate } = req.body;
-    console.log(req.body);
+    const { email } = req.body;
 
-    if (emailUpdate) {
-      const existingAdmin = await Admin.findOne({ email: emailUpdate });
+    if (email) {
+      const existingAdmin = await Admin.findOne({ email: email });
 
-      if (existingAdmin) {
-        if (existingAdmin._id != req.params.id) {
-          return res
-            .status(400)
-            .json({ message: "An account with this email already exists." });
-        }
+      if (existingAdmin && existingAdmin._id != req.params.id) {
+        return res
+          .status(400)
+          .json({ message: "An account with this email already exists." });
       }
     }
 
+    console.log(req.body);
+
+    const { role, name, surname, cell, birthday, gender } = req.body;
+
     const updates = {
-      role: req.body.role,
-      email: req.body.email,
-      // email: req.body.emailUpdate,
-      name: req.body.name,
-      // name: req.body.nameUpdate,
-      surname: req.body.surname,
-      // surname: req.body.surnameUpdate,
+      role,
+      email,
+      name,
+      surname,
+      cell,
+      birthday,
+      gender,
     };
+
+    console.log(updates, "289");
 
     // Find document by id and updates with the required fields
     const result = await Admin.findOneAndUpdate(
@@ -289,6 +294,8 @@ const adminUpdate = async (req, res) => {
         new: true, // return the new result instead of the old one
       }
     ).exec();
+
+    console.log(result, "300");
 
     if (!result) {
       return res.status(404).json({
@@ -321,7 +328,7 @@ const adminUpdate = async (req, res) => {
   }
 };
 
-const adminUpdatePassword = async (req, res) => {
+const UpdatePassword = async (req, res) => {
   try {
     let { updatePassword } = req.body;
 
@@ -382,7 +389,7 @@ const adminUpdatePassword = async (req, res) => {
   }
 };
 
-const adminRemove = async (req, res) => {
+const Remove = async (req, res) => {
   try {
     let updates = {
       removed: true,
@@ -419,7 +426,7 @@ const adminRemove = async (req, res) => {
   }
 };
 
-const adminStatus = async (req, res) => {
+const Status = async (req, res) => {
   try {
     if (req.query.enabled === true || req.query.enabled === false) {
       let updates = {
@@ -467,7 +474,7 @@ const adminStatus = async (req, res) => {
     });
   }
 };
-const adminSearch = async (req, res) => {
+const Search = async (req, res) => {
   try {
     if ([undefined, "", " "].includes(req.query.searchInput)) {
       return res
@@ -517,7 +524,7 @@ const adminSearch = async (req, res) => {
   }
 };
 
-const adminsFilter = async (req, res) => {
+const Filter = async (req, res) => {
   try {
     if (req.query.filter === undefined || req.query.equal === undefined) {
       return res.status(403).json({
@@ -545,15 +552,15 @@ const adminsFilter = async (req, res) => {
 };
 
 export {
-  adminsList,
-  adminProfile,
-  adminPhoto,
-  adminsFilter,
-  adminSearch,
-  adminStatus,
-  adminRemove,
-  adminUpdatePassword,
-  adminUpdate,
-  adminRead,
-  adminCreate,
+  List,
+  Profile,
+  Photo,
+  Filter,
+  Search,
+  Status,
+  Remove,
+  UpdatePassword,
+  Update,
+  Read,
+  Create,
 };

@@ -15,33 +15,23 @@ const suppliersSchema = new Schema(
       trim: true,
       required: true,
     },
-    managerName: {
+    manager: {
       type: String,
       trim: true,
       required: true,
     },
-    managerSurname: {
-      type: String,
+    items: {
+      type: [Schema.ObjectId],
+      ref: "Item",
+      autopopulate: true,
       trim: true,
-      required: true,
+      default: [],
     },
     bankAccount: {
       type: String,
       trim: true,
     },
-    RC: {
-      type: String,
-      trim: true,
-    },
-    AI: {
-      type: String,
-      trim: true,
-    },
-    NIF: {
-      type: String,
-      trim: true,
-    },
-    NIS: {
+    rateContract: {
       type: String,
       trim: true,
     },
@@ -49,18 +39,10 @@ const suppliersSchema = new Schema(
       type: String,
       trim: true,
     },
-    tel: {
-      type: String,
+    cell: {
+      type: Number,
       trim: true,
       required: true,
-    },
-    fax: {
-      type: String,
-      trim: true,
-    },
-    cell: {
-      type: String,
-      trim: true,
     },
     email: {
       type: String,

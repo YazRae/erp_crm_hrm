@@ -112,7 +112,7 @@ const create = async (Model, req, res) => {
 
     const doc = await body();
 
-    console.log(doc);
+    console.log(doc, "115");
 
     const result = await Model.create(doc);
 
@@ -150,6 +150,18 @@ const create = async (Model, req, res) => {
 
 const update = async (Model, req, res) => {
   try {
+    const { email } = req.body;
+
+    if (email) {
+      const existingModel = await Model.findOne({ email: email });
+
+      if (existingModel && existingModel._id != req.params.id) {
+        console.log(existingModel, "159");
+        return res
+          .status(400)
+          .json({ message: "An account with this email already exists." });
+      }
+    }
     const body = () => {
       let bodyObject = req.body;
       if (customModels.includes(Model.modelName)) {
@@ -188,6 +200,8 @@ const update = async (Model, req, res) => {
     };
 
     const doc = body();
+
+    console.log(doc, "204");
 
     const result = await Model.findOneAndUpdate(
       { _id: req.params.id, removed: false },

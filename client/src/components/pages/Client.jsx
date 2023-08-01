@@ -2,11 +2,7 @@ import { CrudFeature } from "../features";
 
 function Client() {
   const entity = "Client";
-  const searchConfig = {
-    displayLabels: ["company"],
-    outputValue: "_id",
-    path: "client",
-  };
+
   const dataTable = [
     {
       title: "Company",
@@ -53,7 +49,6 @@ function Client() {
   const config = {
     entity,
     dataTable,
-    searchConfig,
   };
 
   return <CrudFeature config={config} />;

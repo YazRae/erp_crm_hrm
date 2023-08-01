@@ -1,17 +1,19 @@
 import { Select } from "antd";
-import { useEffect, useState } from "react";
-import { List } from "../../redux/api/entityApiSlice.js";
+import { useEffect, useState, lazy } from "react";
+import { List, Read } from "../../redux/api/entityApiSlice.js";
+import { useAppContext } from "../../context/app";
 
-export default function SelectAsync({
-  entity,
-  displayLabels = ["name"],
-  outputValue = "_id",
-  value,
-  onChange,
-}) {
+export default function SelectAsync({ entity, value, onChange }) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectOptions, setOptions] = useState([]);
   const [currentValue, setCurrentValue] = useState(undefined);
+
+  const {
+    appContextAction: { searchConfig },
+  } = useAppContext();
+
+  const outputValue = searchConfig[entity].outputValue;
+  const displayLabels = searchConfig[entity].displayLabels;
 
   const {
     currentData,
@@ -57,7 +59,7 @@ export default function SelectAsync({
       disabled={isLoading}
       value={currentValue}
       showSearch={true}
-      onSelect={(value, LabeledValue) => console.log(value, LabeledValue)}
+      onSelect={(value, LabeledValue) => value}
       onChange={(newValue) => {
         setCurrentValue(newValue[outputValue] || newValue);
         if (onChange) {
@@ -67,8 +69,8 @@ export default function SelectAsync({
     >
       {selectOptions.map((optionField) => (
         <Select.Option
-          key={optionField[outputValue] || optionField}
-          value={optionField[outputValue] || optionField}
+          key={optionField[outputValue]}
+          value={optionField[outputValue]}
         >
           {labels(optionField)}
         </Select.Option>

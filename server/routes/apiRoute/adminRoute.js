@@ -1,16 +1,16 @@
 import { Router } from "express";
 import {
-  adminsList,
-  adminProfile,
-  adminPhoto,
-  adminsFilter,
-  adminSearch,
-  adminStatus,
-  adminRemove,
-  adminUpdatePassword,
-  adminUpdate,
-  adminRead,
-  adminCreate,
+  List,
+  Profile,
+  Photo,
+  Filter,
+  Search,
+  Status,
+  Remove,
+  UpdatePassword,
+  Update,
+  Read,
+  Create,
 } from "../../controllers/apiControllers/adminController.js";
 import { adminPhotoUpload, bodyPath } from "../../middleware/index.js";
 
@@ -19,28 +19,28 @@ const router = Router();
 const routes = {
   // get requests
   get: {
-    search: adminSearch,
-    "read/:id": adminRead,
-    list: adminsList,
-    filter: adminsFilter,
-    profile: adminProfile,
+    search: Search,
+    "read/:id": Read,
+    list: List,
+    filter: Filter,
+    profile: Profile,
   },
 
   // post requests
   post: {
-    create: [[adminPhotoUpload.single("photo"), bodyPath], adminCreate],
-    photo: [[adminPhotoUpload.single("photo"), bodyPath], adminPhoto],
+    create: [[adminPhotoUpload.single("photo"), bodyPath], Create],
+    photo: [[adminPhotoUpload.single("photo"), bodyPath], Photo],
   },
 
   // patch requests
   patch: {
-    "update/:id": adminUpdate,
-    "status/:id": adminStatus,
-    "password-update/:id": adminUpdatePassword,
+    "update/:id": Update,
+    "status/:id": Status,
+    "password-update/:id": UpdatePassword,
   },
 
   // delete requests
-  delete: { "remove/:id": adminRemove },
+  delete: { "remove/:id": Remove },
 };
 
 for (const request in routes) {

@@ -1,9 +1,7 @@
-import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
+import { createEntityAdapter } from "@reduxjs/toolkit";
 import apiSlice from "./apiSlice";
 
 export const entityAdapter = createEntityAdapter({});
-
-const initialState = entityAdapter.getInitialState();
 
 export const entityApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -59,6 +57,31 @@ export const entityApiSlice = apiSlice.injectEndpoints({
       },
     }),
 
+    read: builder.query({
+      query: ({ entity, id }) => {
+        return {
+          url: `/${entity.toLowerCase()}/read/${id}`,
+          method: "GET",
+        };
+      },
+
+      providesTags: (response, error, { entity }) => {
+        if (error) {
+          return console.log(error);
+        }
+
+        return response.result
+          ? [
+              { type: `${entity}s`, id: "LIST" },
+              response.result.map((item) => ({
+                type: `${entity}s`,
+                id: item._id,
+              })),
+            ]
+          : [{ type: `${entity}s`, id: "LIST" }];
+      },
+    }),
+
     create: builder.mutation({
       query: ({ entity, body }) => ({
         url: `/${entity.toLowerCase()}/create/`,
@@ -79,6 +102,32 @@ export const entityApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: (result, error, { entity, id }) => [
         { type: `${entity}s`, id },
       ],
+
+      async onQueryStarted(
+        { entity, id, body },
+        {
+          dispatch,
+          getState,
+          extra,
+          requestId,
+          queryFulfilled,
+          getCacheEntry,
+          updateCachedData,
+        }
+      ) {
+        const { data } = await queryFulfilled;
+        const patchResult = dispatch(
+          entityApiSlice.util.updateQueryData("list", id, (draft) => {
+            Object.assign(draft, data);
+          })
+        );
+        console.log(data);
+        try {
+          dispatch(entityApiSlice.util.resetApiState());
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
 
     remove: builder.mutation({
@@ -97,43 +146,10 @@ export const entityApiSlice = apiSlice.injectEndpoints({
 export const {
   useListQuery: List,
   useLazySearchQuery: Search,
+  useLazyReadQuery: Read,
   useCreateMutation: Create,
   useUpdateMutation: Update,
   useRemoveMutation: Remove,
 } = entityApiSlice;
 
-export const selectEntityResult = ({ entity }) =>
-  entityApiSlice.endpoints.getEntity.select({ entity });
-
-export const selectEntityData = (entity) =>
-  createSelector(
-    selectEntityResult(entity),
-    (entityResult) => entityResult.data
-  );
-
-// export const selectEntityDataById = (entity, itemId) =>
-//   createSelector(selectEntityData(entity), (data) =>
-//     data?.result.find((item) => item._id === itemId)
-//   );
-
-// console.log(
-//   entityAdapter.getSelectors((state) => selectEntityData(state) ?? initialState)
-// );
-
-// export const { selectAll, selectById, selectIds, selectEntities, selectTotal } =
-//   entityAdapter.getSelectors(
-//     (state) => selectEntityData(state) ?? initialState
-//   );
-
-export const { selectAll, selectById, selectIds, selectEntities, selectTotal } =
-  entityAdapter.getSelectors((state) => {
-    return !Object.values(state.api.queries)[0]
-      ? initialState
-      : Object.values(state.api.queries)[0].status !== "fulfilled"
-      ? initialState
-      : Object.values(state.api.queries)[0].data;
-  });
-
-export const resetState = entityApiSlice.internalActions.resetApiState;
-
-console.log(entityApiSlice);
+export const resetState = entityApiSlice.util.resetApiState();

@@ -15,12 +15,37 @@ const itemSchema = new Schema(
       trim: true,
       required: true,
     },
+    itemCode: {
+      type: String,
+      trim: true,
+      required: true,
+    },
     description: {
       type: String,
       trim: true,
     },
-    price: {
-      type: Number,
+    costRecords: {
+      type: Array,
+      required: true,
+    },
+    priceRecords: {
+      type: Array,
+      required: true,
+    },
+    suppliers: {
+      type: [Schema.ObjectId],
+      ref: "Suppliers",
+      autopopulate: true,
+      trim: true,
+      required: true,
+    },
+    defaultUnitsOfMeasure: {
+      type: String,
+      required: true,
+    },
+    itemlocations: {
+      type: String,
+      trim: true,
     },
   },
   { timestamps: true }

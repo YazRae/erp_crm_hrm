@@ -3,12 +3,8 @@ import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { CrudFeature } from "../features";
 
 export default function PaymentMode() {
-  const entity = "paymentMode";
-  const searchConfig = {
-    displayLabels: ["name"],
-    outputValue: "_id",
-    path: "paymentMode",
-  };
+  const entity = "PaymentMode";
+
   const dataTable = [
     {
       title: "Payment Mode",
@@ -65,7 +61,6 @@ export default function PaymentMode() {
   const config = {
     entity,
     dataTable,
-    searchConfig,
   };
   return <CrudFeature config={config} />;
 }

@@ -3,11 +3,7 @@ import { CrudFeature } from "../features";
 
 function Employee() {
   const entity = "Employee";
-  const searchConfig = {
-    displayLabels: ["name", "surname"],
-    outputValue: "_id",
-    path: "employee",
-  };
+
   const dataTable = [
     {
       title: "Name",
@@ -40,12 +36,14 @@ function Employee() {
     },
     {
       title: "Role",
-      dataIndex: "role",
+      // dataIndex: "role",
+      dataIndex: ["role", "displayName"],
       key: "role",
     },
     {
       title: "Address",
       dataIndex: "address",
+      key: "address",
     },
     {
       title: "Phone",
@@ -62,7 +60,6 @@ function Employee() {
   const config = {
     entity,
     dataTable,
-    searchConfig,
   };
   return <CrudFeature config={config} />;
 }

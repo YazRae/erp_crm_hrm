@@ -2,11 +2,7 @@ import { Button, DatePicker, Form, Input, Select, InputNumber } from "antd";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useCrudContext } from "../../context/crud";
-import {
-  Create,
-  resetState,
-  entityApiSlice,
-} from "../../redux/api/entityApiSlice";
+import { Create, resetState } from "../../redux/api/entityApiSlice";
 import { crud } from "../../redux/crud/actions.js";
 import Loader from "../app/Loader";
 import { SelectAsyncFeature } from "../features";
@@ -28,7 +24,7 @@ function CreateForm({ config }) {
   const [form] = Form.useForm();
 
   const [
-    trigger,
+    create,
     {
       isError,
       isLoading,
@@ -45,10 +41,8 @@ function CreateForm({ config }) {
       "🚀 ~ file: index.jsx ~ line 19 ~ onSubmit ~ fieldsValue",
       body
     );
-    trigger({ entity, body });
-    store.dispatch(entityApiSlice.internalActions.queryResultPatched());
 
-    // dispatch(crud.create({ entity, jsonData: fieldsValue }));
+    store.dispatch(create({ entity, body }));
   };
 
   useEffect(() => {
@@ -79,11 +73,8 @@ function CreateForm({ config }) {
                 },
               ]}
             >
-              {field.title == "Role" ? (
-                <SelectAsyncFeature
-                  entity={"Role"}
-                  displayLabels={["displayName"]}
-                />
+              {["Role", "Suppliers"].includes(field.title) ? (
+                <SelectAsyncFeature entity={field.title} />
               ) : field.title == "Gender" ? (
                 <Select>
                   <Option value="male">Male</Option>

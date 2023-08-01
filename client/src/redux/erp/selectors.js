@@ -1,7 +1,5 @@
 import { createSelector } from "reselect";
 
-// const selectErp = (state) => state.erp;
-
 const selectErp = (state) => {
   // console.log(state);
   return state.reducer.erp;

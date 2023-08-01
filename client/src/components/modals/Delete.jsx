@@ -1,8 +1,9 @@
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useAppContext } from "../../context/app";
 import { useCrudContext } from "../../context/crud";
-import { resetState, Remove } from "../../redux/api/entityApiSlice";
+import { Remove, resetState } from "../../redux/api/entityApiSlice";
 import { selectRemovedItem } from "../../redux/crud/selectors.js";
 import store from "../../redux/store";
 import { valueByString } from "../../utils";
@@ -10,10 +11,15 @@ import { valueByString } from "../../utils";
 function DeleteModal({ config }) {
   const {
     entity,
-    searchConfig: { displayLabels },
     deleteMessage = "Do you want to remove: ",
     title = "Remove Item",
   } = config;
+
+  const {
+    appContextAction: { searchConfig },
+  } = useAppContext();
+
+  const displayLabels = searchConfig[entity].displayLabels;
 
   const [displayItem, setDisplayItem] = useState("");
 

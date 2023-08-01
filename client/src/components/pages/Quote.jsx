@@ -6,11 +6,8 @@ import { CrudFeature } from "../features";
 export default function Quote() {
   // const { moneyRowFormatter } = useMoney();
 
-  const entity = "quote";
-  const searchConfig = {
-    displayLabels: ["name", "surname"],
-    path: "quote",
-  };
+  const entity = "Quote";
+
   const dataTable = [
     {
       title: "Number",
@@ -68,7 +65,6 @@ export default function Quote() {
   const config = {
     entity,
     dataTable,
-    searchConfig,
   };
   return <CrudFeature config={config} />;
 }

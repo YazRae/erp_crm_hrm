@@ -1,52 +1,52 @@
 import { CrudFeature } from "../features";
 
-function Suppliers() {
-  const entity = "suppliers";
-  const searchConfig = {
-    displayLabels: ["company"],
-    outputValue: "_id",
-    path: "suppliers",
-  };
+function Suppliers({}) {
+  const entity = "Suppliers";
+
   const dataTable = [
     {
-      title: "Item Code",
-      dataIndex: "itemCode",
+      title: "Company",
+      dataIndex: "company",
     },
     {
-      title: "Description",
-      dataIndex: "description",
+      title: "Items",
+      dataIndex: "items",
     },
     {
-      title: "Cost records",
-      dataIndex: "costRecords",
+      title: "Manager",
+      dataIndex: "manager",
     },
     {
-      title: "Price Records",
-      dataIndex: "priceRecords",
+      title: "Bank Account",
+      dataIndex: "bankAccount",
     },
     {
-      title: "Provider",
-      dataIndex: "Provider",
+      title: "Rate Contract",
+      dataIndex: "rateContract",
     },
     {
-      title: "Provider Email",
-      dataIndex: "providerEmail",
+      title: "Email",
+      dataIndex: "email",
     },
     {
-      title: "Default Units of Measure",
-      dataIndex: "Default units of measure",
+      title: "Cell",
+      dataIndex: "cell",
     },
     {
-      title: "Item Locations",
-      dataIndex: "itemlocations",
+      title: "Address",
+      dataIndex: "address",
+    },
+    {
+      title: "Website",
+      dataIndex: "website",
     },
   ];
 
   const config = {
     entity,
     dataTable,
-    searchConfig,
   };
+
   return <CrudFeature config={config} />;
 }
 

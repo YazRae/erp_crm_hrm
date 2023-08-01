@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../components/app";
 import { useCrudContext } from "../../context/crud";
+import { Update } from "../../redux/api/entityApiSlice";
 import { crud } from "../../redux/crud/actions.js";
 import { selectUpdatedItem } from "../../redux/crud/selectors.js";
 import { SelectAsyncFeature } from "../features";
@@ -14,9 +15,9 @@ function UpdateForm({ config }) {
   const { Password } = Input;
 
   const dispatch = useDispatch();
-  const { current, isLoading, isSuccess } = useSelector(selectUpdatedItem);
+  const { current } = useSelector(selectUpdatedItem);
 
-  const { state, crudContextAction } = useCrudContext();
+  const { crudContextAction } = useCrudContext();
 
   const { panel, collapsedBox, readBox } = crudContextAction;
 
@@ -27,14 +28,17 @@ function UpdateForm({ config }) {
   const [form] = Form.useForm();
   const { Item } = Form;
 
-  const onSubmit = (fieldsValue) => {
-    console.log(
-      "🚀 ~ file: index.jsx ~ line 34 ~ onSubmit ~  current._id",
-      current._id
-    );
+  const [update, { isError, isLoading, isSuccess, reset }] = Update();
+
+  if (isError) {
+    reset();
+  }
+
+  const onSubmit = (body) => {
     const id = current._id;
-    dispatch(crud.update({ entity, id, jsonData: fieldsValue }));
+    update({ entity, id, body });
   };
+
   useEffect(() => {
     if (current) {
       let newValues = { ...current };
@@ -93,7 +97,7 @@ function UpdateForm({ config }) {
             {dataTable.map((field) => (
               <Item
                 key={field.dataIndex}
-                name={field.dataIndex}
+                name={field.key}
                 label={field.title}
                 rules={[
                   {
@@ -103,10 +107,7 @@ function UpdateForm({ config }) {
                 ]}
               >
                 {field.title == "Role" ? (
-                  <SelectAsyncFeature
-                    entity={"Role"}
-                    displayLabels={["displayName"]}
-                  />
+                  <SelectAsyncFeature entity={field.title} />
                 ) : field.title == "Gender" ? (
                   <Select>
                     <Option value="male">Male</Option>
@@ -123,7 +124,7 @@ function UpdateForm({ config }) {
                 )}
               </Item>
             ))}
-            {["Admin", "Employee"].includes(entity) && (
+            {/* {["Admin", "Employee"].includes(entity) && (
               <Item
                 name={"password"}
                 label={"Password"}
@@ -139,7 +140,7 @@ function UpdateForm({ config }) {
                   autoComplete="new-password"
                 />
               </Item>
-            )}
+            )} */}
             <Item
               style={{
                 display: "inline-block",
@@ -147,7 +148,7 @@ function UpdateForm({ config }) {
               }}
             >
               <Button type="primary" htmlType="submit">
-                Save
+                Update
               </Button>
             </Item>
             <Item

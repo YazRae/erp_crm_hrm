@@ -1,16 +1,16 @@
 import { CrudFeature } from "../features";
 
 function Item() {
-  const entity = "item";
-  const searchConfig = {
-    displayLabels: ["company"],
-    outputValue: "_id",
-    path: "item",
-  };
+  const entity = "Item";
+
   const dataTable = [
     {
       title: "Item Code",
       dataIndex: "itemCode",
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
     },
     {
       title: "Description",
@@ -25,16 +25,12 @@ function Item() {
       dataIndex: "priceRecords",
     },
     {
-      title: "Provider",
-      dataIndex: "Provider",
-    },
-    {
-      title: "Provider Email",
-      dataIndex: "providerEmail",
+      title: "Suppliers",
+      dataIndex: "suppliers",
     },
     {
       title: "Default Units of Measure",
-      dataIndex: "Default units of measure",
+      dataIndex: "defaultUnitsOfMeasure",
     },
     {
       title: "Item Locations",
@@ -45,7 +41,6 @@ function Item() {
   const config = {
     entity,
     dataTable,
-    searchConfig,
   };
   return <CrudFeature config={config} />;
 }

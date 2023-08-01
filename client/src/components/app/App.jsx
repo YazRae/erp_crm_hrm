@@ -14,7 +14,7 @@ function App() {
 
         <Route path="/" element={<Outlet />}>
           <Route index element={<Dashboard />} />
-          {pages.map((page) => (
+          {pages.map((page, key) => (
             <Route
               key={page.toLowerCase()}
               path={page.toLowerCase()}

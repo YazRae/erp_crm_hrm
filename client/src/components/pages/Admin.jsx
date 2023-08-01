@@ -3,11 +3,7 @@ import dayjs from "dayjs";
 
 function Admin() {
   const entity = "Admin";
-  const searchConfig = {
-    displayLabels: ["name", "surname"],
-    outputValue: "_id",
-    path: "admin",
-  };
+
   const dataTable = [
     {
       title: "Name",
@@ -51,10 +47,8 @@ function Admin() {
     },
     {
       title: "Role",
-      // dataIndex: ["role", "displayName"],
-      // dataIndex: "role.displayName",
-
-      dataIndex: "role",
+      // dataIndex: "role",
+      dataIndex: ["role", "displayName"],
       label: "Role",
       key: "role",
     },
@@ -63,7 +57,6 @@ function Admin() {
   const config = {
     entity,
     dataTable,
-    searchConfig,
   };
 
   return <CrudFeature config={config} />;

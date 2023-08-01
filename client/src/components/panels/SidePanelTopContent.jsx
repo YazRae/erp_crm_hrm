@@ -7,16 +7,23 @@ import { ReadItemPanel } from "../../components/panels";
 import { useCrudContext } from "../../context/crud";
 import { crud } from "../../redux/crud/actions.js";
 import { selectCurrentItem } from "../../redux/crud/selectors.js";
+import { useAppContext } from "../../context/app";
+
 // import { UpdatePasswordForm } from "../forms";
 
 function SidePanelTopContent({ config, formElements }) {
-  const { crudContextAction, state } = useCrudContext();
   const {
-    searchConfig: { displayLabels },
-  } = config;
-  const { panel, advancedBox, modal, readBox, editBox } = crudContextAction;
+    crudContextAction: { advancedBox, modal, editBox },
+    state: { isReadBoxOpen, isEditBoxOpen, isAdvancedBoxOpen },
+  } = useCrudContext();
 
-  const { isReadBoxOpen, isEditBoxOpen, isAdvancedBoxOpen } = state;
+  const { entity } = config;
+
+  const {
+    appContextAction: { searchConfig },
+  } = useAppContext();
+
+  const displayLabels = searchConfig[entity].displayLabels;
 
   const { result: currentItem } = useSelector(selectCurrentItem);
 
