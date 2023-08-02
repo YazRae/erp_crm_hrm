@@ -4,9 +4,13 @@ function Role() {
   const entity = "Role";
 
   const dataTable = [
-    { title: "Department", dataIndex: "department" },
-    { title: "Role", dataIndex: "displayName" },
-    { title: "Dashboard Type", dataIndex: "dashboardType" },
+    { title: "Department", dataIndex: "department", key: "department" },
+    { title: "Name", dataIndex: "displayName", key: "displayName" },
+    {
+      title: "Dashboard Type",
+      dataIndex: "dashboardType",
+      key: "dashboardType",
+    },
   ];
 
   const config = {

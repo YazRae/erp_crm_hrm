@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../components/app";
 import { useCrudContext } from "../../context/crud";
-import { Update } from "../../redux/api/entityApiSlice";
+import { Update } from "../../redux/apiSlice";
 import { crud } from "../../redux/crud/actions.js";
 import { selectUpdatedItem } from "../../redux/crud/selectors.js";
 import { SelectAsyncFeature } from "../features";
@@ -106,18 +106,16 @@ function UpdateForm({ config }) {
                   },
                 ]}
               >
-                {field.title == "Role" ? (
+                {field.ref ? (
                   <SelectAsyncFeature entity={field.title} />
                 ) : field.title == "Gender" ? (
                   <Select>
                     <Option value="male">Male</Option>
                     <Option value="female">Female</Option>
                   </Select>
-                ) : field.title == "Cell" ? (
+                ) : field.Number ? (
                   <Input type="number" />
-                ) : field.title == "Company REG Number" ? (
-                  <Input type="number" format={"DD/MM/YYYY"} />
-                ) : field.title == "Birthday" ? (
+                ) : field.Date ? (
                   <DatePicker format={"DD/MM/YYYY"} />
                 ) : (
                   <Input autoComplete="off" />

@@ -28,6 +28,7 @@ function Admin() {
       dataIndex: "cell",
       label: "Cell",
       key: "cell",
+      Number,
     },
     {
       title: "Birthday",
@@ -37,7 +38,7 @@ function Admin() {
       render: (date) => {
         return dayjs(date).format("DD/MM/YYYY");
       },
-      isDate: true,
+      Date,
     },
     {
       title: "Gender",
@@ -50,6 +51,7 @@ function Admin() {
       // dataIndex: "role",
       dataIndex: ["role", "displayName"],
       label: "Role",
+      ref: true,
       key: "role",
     },
   ];

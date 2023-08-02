@@ -13,18 +13,22 @@ function Invoice() {
     {
       title: "#N",
       dataIndex: "number",
+      key: "number",
+      Number,
     },
     {
       title: "Client",
-      // dataIndex: ["client", "company"],
-      dataIndex: "compam",
+      dataIndex: ["client", "company"],
+      key: "client",
     },
     {
       title: "Date",
       dataIndex: "date",
+      key: "date",
       render: (date) => {
         return dayjs(date).format("DD/MM/YYYY");
       },
+      Date,
     },
     {
       title: "Due date",
@@ -32,18 +36,21 @@ function Invoice() {
       render: (date) => {
         return dayjs(date).format("DD/MM/YYYY");
       },
+      Date,
     },
     {
       title: "total",
       dataIndex: "total",
       // onCell: () => moneyRowFormatter({}).props,
       // render: (amount) => moneyRowFormatter({ amount }).children,
+      Number,
     },
     {
       title: "Balance",
       dataIndex: "credit",
       // onCell: () => moneyRowFormatter({}).props,
       // render: (amount) => moneyRowFormatter({ amount }).children,
+      Number,
     },
     {
       title: "status",

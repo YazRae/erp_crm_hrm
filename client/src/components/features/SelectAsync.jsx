@@ -1,7 +1,7 @@
 import { Select } from "antd";
-import { useEffect, useState, lazy } from "react";
-import { List, Read } from "../../redux/api/entityApiSlice.js";
+import { useEffect, useState } from "react";
 import { useAppContext } from "../../context/app";
+import { List } from "../../redux/apiSlice.js";
 
 export default function SelectAsync({ entity, value, onChange }) {
   const [isLoading, setIsLoading] = useState(false);

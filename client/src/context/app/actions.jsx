@@ -31,13 +31,13 @@ const contextActions = (dispatch, entity = null) => {
         path: "employee",
       },
       Invoice: {
-        // displayLabels: ["paymentInvoice"],
-        outputValue: "company",
+        displayLabels: ["paymentInvoice"],
+        outputValue: "_id",
         path: "invoice",
       },
       Item: {
-        displayLabels: ["company"],
-        outputValue: "company",
+        displayLabels: ["name"],
+        outputValue: "_id",
         path: "item",
       },
       Payment: {
@@ -62,7 +62,7 @@ const contextActions = (dispatch, entity = null) => {
       },
       Suppliers: {
         displayLabels: ["company"],
-        outputValue: "company",
+        outputValue: "_id",
         path: "suppliers",
       },
     },

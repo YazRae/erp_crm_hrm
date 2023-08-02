@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import mongooseAutoPopulate from "mongoose-autopopulate";
 
 const itemSchema = new Schema(
   {
@@ -25,30 +26,26 @@ const itemSchema = new Schema(
       trim: true,
     },
     costRecords: {
-      type: Array,
+      type: String,
       required: true,
     },
     priceRecords: {
-      type: Array,
+      type: String,
       required: true,
     },
-    suppliers: {
-      type: [Schema.ObjectId],
-      ref: "Suppliers",
-      autopopulate: true,
-      trim: true,
-      required: true,
-    },
+    suppliers: { type: Schema.ObjectId, ref: "Suppliers", autopopulate: true },
     defaultUnitsOfMeasure: {
       type: String,
       required: true,
     },
-    itemlocations: {
+    itemLocations: {
       type: String,
       trim: true,
     },
   },
   { timestamps: true }
 );
+
+itemSchema.plugin(mongooseAutoPopulate);
 
 export default model("Item", itemSchema);

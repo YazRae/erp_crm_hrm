@@ -1,7 +1,7 @@
 import { EllipsisOutlined } from "@ant-design/icons";
 import { PageHeader } from "@ant-design/pro-layout";
 import { Button, Dropdown, Table } from "antd";
-import { List, resetState } from "../../redux/api/entityApiSlice";
+import { List, resetState } from "../../redux/apiSlice";
 import store from "../../redux/store";
 import { uniqueId } from "../../utils";
 import { AddNewEntityButton } from "../buttons";

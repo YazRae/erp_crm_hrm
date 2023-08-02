@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import mongooseAutoPopulate from "mongoose-autopopulate";
 
 const clientSchema = new Schema(
   {
@@ -20,11 +21,7 @@ const clientSchema = new Schema(
       trim: true,
       required: true,
     },
-    position: {
-      type: String,
-      trim: true,
-      required: true,
-    },
+    role: { type: Schema.ObjectId, ref: "Role", autopopulate: true },
     bankAccount: {
       type: String,
       trim: true,
@@ -70,5 +67,7 @@ const clientSchema = new Schema(
   },
   { timestamps: true }
 );
+
+clientSchema.plugin(mongooseAutoPopulate);
 
 export default model("Client", clientSchema);

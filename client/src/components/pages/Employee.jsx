@@ -22,6 +22,7 @@ function Employee() {
         return dayjs(date).format("DD/MM/YYYY");
       },
       key: "birthday",
+      Date,
     },
     {
       title: "Gender",
@@ -36,8 +37,9 @@ function Employee() {
     },
     {
       title: "Role",
-      // dataIndex: "role",
       dataIndex: ["role", "displayName"],
+      label: "Role",
+      ref: true,
       key: "role",
     },
     {
@@ -46,9 +48,10 @@ function Employee() {
       key: "address",
     },
     {
-      title: "Phone",
-      dataIndex: "phone",
-      key: "phone",
+      title: "Cell",
+      dataIndex: "cell",
+      key: "cell",
+      Number,
     },
     {
       title: "E-mail",

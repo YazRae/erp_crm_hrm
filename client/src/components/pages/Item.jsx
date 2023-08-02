@@ -7,34 +7,45 @@ function Item() {
     {
       title: "Item Code",
       dataIndex: "itemCode",
+      key: "itemCode",
     },
     {
       title: "Name",
       dataIndex: "name",
+      key: "name",
     },
     {
       title: "Description",
       dataIndex: "description",
+      key: "description",
     },
     {
       title: "Cost records",
       dataIndex: "costRecords",
+      key: "costRecords",
+      Number,
     },
     {
       title: "Price Records",
       dataIndex: "priceRecords",
+      key: "priceRecords",
+      Number,
     },
     {
       title: "Suppliers",
-      dataIndex: "suppliers",
+      dataIndex: ["suppliers", "company"],
+      key: "suppliers",
+      ref: true,
     },
     {
       title: "Default Units of Measure",
       dataIndex: "defaultUnitsOfMeasure",
+      key: "defaultUnitsOfMeasure",
     },
     {
       title: "Item Locations",
-      dataIndex: "itemlocations",
+      dataIndex: "itemLocations",
+      key: "itemLocations",
     },
   ];
 

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useDebounce } from "react-use";
 import { useAppContext } from "../../context/app";
 import { useCrudContext } from "../../context/crud";
-import { Search } from "../../redux/api/entityApiSlice";
+import { Search } from "../../redux/apiSlice";
 import { crud } from "../../redux/crud/actions.js";
 
 function EntitySearchFeature({ config }) {

@@ -116,7 +116,7 @@ const create = async (Model, req, res) => {
 
     const result = await Model.create(doc);
 
-    console.log(result);
+    console.log(result, "119");
 
     // if (customModels.includes(Model.modelName)) {
     //   generatePdf(

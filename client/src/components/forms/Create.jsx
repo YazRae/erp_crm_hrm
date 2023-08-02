@@ -1,12 +1,11 @@
-import { Button, DatePicker, Form, Input, Select, InputNumber } from "antd";
+import { Button, DatePicker, Form, Input, Select } from "antd";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useCrudContext } from "../../context/crud";
-import { Create, resetState } from "../../redux/api/entityApiSlice";
+import { Create } from "../../redux/apiSlice";
 import { crud } from "../../redux/crud/actions.js";
 import Loader from "../app/Loader";
 import { SelectAsyncFeature } from "../features";
-import store from "../../redux/store";
 
 function CreateForm({ config }) {
   const { Item } = Form;
@@ -42,7 +41,7 @@ function CreateForm({ config }) {
       body
     );
 
-    store.dispatch(create({ entity, body }));
+    create({ entity, body });
   };
 
   useEffect(() => {
@@ -64,7 +63,7 @@ function CreateForm({ config }) {
           {dataTable.map((field) => (
             <Item
               key={field.dataIndex}
-              name={field.dataIndex}
+              name={field.key}
               label={field.title}
               rules={[
                 {
@@ -73,25 +72,23 @@ function CreateForm({ config }) {
                 },
               ]}
             >
-              {["Role", "Suppliers"].includes(field.title) ? (
+              {field.ref ? (
                 <SelectAsyncFeature entity={field.title} />
               ) : field.title == "Gender" ? (
                 <Select>
                   <Option value="male">Male</Option>
                   <Option value="female">Female</Option>
                 </Select>
-              ) : field.title == "Cell" ? (
+              ) : field.Number ? (
                 <Input type="number" />
-              ) : field.title == "Company REG Number" ? (
-                <Input type="number" format={"DD/MM/YYYY"} />
-              ) : field.title == "Birthday" ? (
+              ) : field.Date ? (
                 <DatePicker format={"DD/MM/YYYY"} />
               ) : (
                 <Input autoComplete="off" />
               )}
             </Item>
           ))}
-          {["Admin", "Employee"].includes(entity) && (
+          {/* {["Admin", "Employee"].includes(entity) && (
             <Item
               name={"password"}
               label={"Password"}
@@ -107,7 +104,7 @@ function CreateForm({ config }) {
                 autoComplete="new-password"
               />
             </Item>
-          )}
+          )} */}
           <Item>
             <Button type="primary" htmlType="submit">
               Submit

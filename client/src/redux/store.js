@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import apiSlice from "./api/apiSlice.js";
+import { apiSlice } from "./apiSlice.js";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { appReducer } from "./rootReducer.js";
 // import authReducer from "./auth/authSlice.js";

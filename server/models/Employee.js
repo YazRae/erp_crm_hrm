@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import mongooseAutoPopulate from "mongoose-autopopulate";
 
 const employeeSchema = new Schema(
   {
@@ -60,6 +61,8 @@ const employeeSchema = new Schema(
   },
   { timestamps: true }
 );
+
+employeeSchema.plugin(mongooseAutoPopulate);
 
 employeeSchema.index({
   name: "text",

@@ -9,10 +9,12 @@ export default function PaymentMode() {
     {
       title: "Payment Mode",
       dataIndex: "name",
+      key: "paymentMode",
     },
     {
       title: "Description",
       dataIndex: "description",
+      key: "description",
     },
     {
       title: "Is Default",
